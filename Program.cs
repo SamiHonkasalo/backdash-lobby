@@ -32,6 +32,8 @@ Console.Title = app.Environment.ApplicationName;
 app.UseForwardedHeaders();
 app.UseSwagger().UseSwaggerUI();
 
+app.MapHealthChecks("health");
+
 app.MapGet("info", (HttpContext context, TimeProvider time) => (object)new
 {
     Date = time.GetLocalNow(),
@@ -136,8 +138,6 @@ app.MapPut("lobby/{name}/mode/{mode}",
         lobby.ChangePeerMode(entry, mode);
         return NoContent();
     });
-
-app.MapHealthChecks("health");
 
 if (app.Environment.IsDevelopment())
     _ = Task.Run(async () =>
