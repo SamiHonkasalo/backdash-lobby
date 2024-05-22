@@ -32,7 +32,7 @@ Console.Title = app.Environment.ApplicationName;
 app.UseForwardedHeaders();
 app.UseSwagger().UseSwaggerUI();
 
-app.MapHealthChecks("health");
+app.MapHealthChecks("/health");
 
 app.MapGet("info", (HttpContext context, TimeProvider time) => (object)new
 {
