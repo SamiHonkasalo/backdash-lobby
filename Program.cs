@@ -25,6 +25,8 @@ builder.Services
 
 builder.Services.AddHostedService<UdpListenerService>();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 Console.Title = app.Environment.ApplicationName;
 app.UseForwardedHeaders();
@@ -134,6 +136,8 @@ app.MapPut("lobby/{name}/mode/{mode}",
         lobby.ChangePeerMode(entry, mode);
         return NoContent();
     });
+
+app.MapHealthChecks("health");
 
 if (app.Environment.IsDevelopment())
     _ = Task.Run(async () =>
