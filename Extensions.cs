@@ -13,7 +13,7 @@ public static class Extensions
         var headers = context.Request.Headers;
         IPAddress? result;
 
-        if (headers.TryGetValue("fly-client-ip", out var clientIPHeader)
+        if (headers.TryGetValue("X-Real-Ip", out var clientIPHeader)
             && IPAddress.TryParse(clientIPHeader, out var clientIP))
             result = clientIP;
         else
